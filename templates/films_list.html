@@ -1,36 +1,125 @@
 <!DOCTYPE html>
 <html lang="ru">
-  <head>
-    <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <meta name="description" content="Что в кино">
-    <meta name="author" content="">
-    <link rel="icon" href="favicon.ico">
 
-    <title>Что в кино</title>
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Что в кино">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
 
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <title>Что в кино</title>
 
-  </head>
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
 
-  <body>
+</head>
 
-    <nav class="navbar">
-      <div class="container">
-        <div class="navbar-header">
-          <a class="navbar-brand" href="/">Что в кино</a>
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Что в кино</a>
+        <a class="navbar-brand" href="/api">Описание API</a>
+      </div>
+    </div>
+  </nav>
+
+  <div id="container" class="container">
+  </div>
+  <!-- /.container -->
+
+  <footer class="footer-main">
+    <div class="container">
+      <div class="row footer-main-row">
+        <div class="col-sm-12 col-md-12">
+          <div class="row">
+            <div class="col-xs-12 col-sm-9 col-md-9">
+              <p>Настоящий сайт создан в исключительно учебных целях. Все сведения о фильмах взяты с сайтов <a href="https://www.afisha.ru/">Афиша</a> и <a href="https://www.kinopoisk.ru/">Кинопоиск</a>.</p>
+            </div>
+          </div>
         </div>
       </div>
-    </nav>
+    </div>
+  </footer>
 
-    <div class="container">
-      <p>There Will Be Films</p>
-    </div><!-- /.container -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
 
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-  </body>
+  <script>
+    function sortMoviesByRating() {
+      $('.movie-details[dataSort]').sort(function(a, b) {
+        return parseFloat($(a).attr('dataSort')) > parseFloat($(b).attr('dataSort')) ? -1 : 1;
+      }).appendTo('#container');
+    }
+
+    function setMovieDetails(movie_url, movie_title, divId, imgId, j) {
+      $.ajax({
+        type: 'POST',
+        url: '/movie_info',
+        dataType: 'json',
+        contentType: 'application/json; charset=utf-8',
+        data: JSON.stringify({
+          "movie_url": movie_url,
+          "movie_title": movie_title
+       } ),
+
+        success: function(result) {
+          dataSort = result.rating;
+          if (!result.rating) {
+            result.rating = "Нет рейтинга", dataSort = 0;
+          }
+          $('#' + divId).append('<br><b>Рейтинг:</b>' + '<p>' + result.rating + '</p>');
+          $('#md' + j).attr('dataSort', dataSort);
+
+          if (!result.description) {
+            result.description = "Нет описания"
+          }
+          $('#' + divId).append('<br><b>Описание:</b>' + '<p>' + result.description + '</p>');
+          $('#' + imgId).attr('src', result.image);
+
+          sortMoviesByRating()
+        }
+      });
+    }
+  </script>
+
+  <script>
+    $(document).ready(function() {
+      $.ajax({
+        url: '/movies',
+        dataType: 'json',
+        type: 'GET',
+
+        success: function(result) {
+          var j = 0;
+          $.each(result, function(movie_title, details) {
+            $('#container').append('\
+                                <div id="md' + j + '" class="col md-12 border-bottom movie-details" dataSort="0" >\
+                                        <div class="row">\
+                                            <div id="content' + j + '" class="col-md-8 text-movie-details">\
+                                                <h4><a href=""></a>\
+                                                </h4>\
+                                                <p class="text-muted"></p>\
+                                                <h2>' + movie_title + '</h2>\
+                                                <img id=film-img' + j + ' src="../static/preloader.gif" alt="image" class="film-img img-responsive">\
+                                                <br><b>Количество кинотеатров:</b>\
+                                                <p>' + details.cinemas_count + '</p>\
+                                                <br><a href="' + details.movie_url + '">На Афише</a><br>\
+                                            </div>\
+                                        </div>\
+                                      </div>\
+                               ');
+            setMovieDetails(details.movie_url, movie_title, 'content' + j, 'film-img' + j, j);
+            j++;
+          });
+        }
+      });
+    });
+  </script>
+
+</body>
+
 </html>

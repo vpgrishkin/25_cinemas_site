@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Что в кино">
+  <meta name="author" content="">
+  <link rel="icon" href="favicon.ico">
+
+  <title>Что в кино</title>
+
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+</head>
+
+<body>
+
+  <nav class="navbar">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Что в кино</a>
+        <a class="navbar-brand" href="/api">Описание API</a>
+      </div>
+    </div>
+  </nav>
+
+  <div id="container" class="container">
+    <div class="col-sm-12 col-md-12">
+      <p>Взаимодействие с&nbsp;API происходить в&nbsp;формате JSON.<br />
+        1. Чтобы получить список фильмов, необходимо отравить GET запрос на&nbsp;адрес: .../movies<br />
+        Описание ответа<br />
+        movie_title&nbsp;&mdash; название фильма;<br />
+        details. cinemas_count&nbsp;&mdash; количество кинотеатров;<br />
+        details. movie_url&nbsp;&mdash; ссылка на&nbsp;описание на&nbsp;сайте afisha.&nbsp;ru.</p>
+        <p>2. Чтобы получить описание фильма, необходимо отравить POST запрос на&nbsp;адрес: .../movie_info<br />
+        Описание запроса<br />
+        {<br />
+        &quot;movie_url&quot;: movie_url,<br />
+        &quot;movie_title&quot;: movie_title<br />
+        }<br />
+        movie_url&nbsp;&mdash; ссылка на&nbsp;описание фильма на&nbsp;afisha.&nbsp;ru;<br />
+        movie_title&nbsp;&mdash; название фильма.</p>
+        <p>Пример запроса<br />
+        {<br />
+        &quot;movie_url&quot;: &quot;https://www. afisha. ru/movie/229807/&quot;, <br />
+        &quot;movie_title&quot;: &quot;Большой&quot;<br />
+        }</p>
+        <p>Пример ответа<br />
+        {<br />
+        &quot;description&quot;: &quot;Амбициозная драма про балет, станки и&nbsp;пуанты&quot;,<br />
+        &quot;image&quot;: &quot;https://s5.afisha. ru/MediaStorage/97/54/731f81fc013443cca7a5ff2a5497.jpg&quot;,<br />
+        &quot;rating&quot;: 7.923<br />
+        }</p>
+    </div>
+  </div>
+  <!-- /.container -->
+
+  <footer class="footer-main">
+    <div class="container">
+      <div class="row footer-main-row">
+        <div class="col-sm-12 col-md-12">
+          <div class="row">
+            <div class="col-xs-12 col-sm-9 col-md-9">
+              <p>Настоящий сайт создан в исключительно учебных целях. Все сведения о фильмах взяты с сайтов <a href="https://www.afisha.ru/">Афиша</a> и <a href="https://www.kinopoisk.ru/">Кинопоиск</a>.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+
+</body>
+
+</html>
