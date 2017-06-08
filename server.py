@@ -51,7 +51,7 @@ def output_movie_info():
 
 
 if __name__ == "__main__":
-    app.run(debug=ENV_DEBUG)
+    app.run(host='0.0.0.0', debug=ENV_DEBUG)
     logging.basicConfig(
         level=logging.INFO,
         format=u'%(filename)s# %(levelname)-8s [%(asctime)s] %(message)s',
