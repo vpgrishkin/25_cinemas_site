@@ -97,6 +97,7 @@ def fetch_afisha_movie_description(afisha_movie_url):
     soup_data = BeautifulSoup(response_content, 'html.parser')
     response_json = soup_data.find(attrs={"type": "application/ld+json"}).text
     movie_description_raw_dict = json.loads(response_json)
+    movie_description = {}
     movie_description['description'] = movie_description_raw_dict['description']
     movie_description['image'] = movie_description_raw_dict['image']
 

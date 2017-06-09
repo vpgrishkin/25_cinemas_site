@@ -52,7 +52,7 @@ def output_movie_info():
 
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0',port=PORT, debug=ENV_DEBUG)
+    app.run(host='0.0.0.0', port=PORT, debug=ENV_DEBUG)
     logging.basicConfig(
         level=logging.INFO,
         format=u'%(filename)s# %(levelname)-8s [%(asctime)s] %(message)s',
