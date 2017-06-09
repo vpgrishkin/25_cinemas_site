@@ -1,8 +1,8 @@
 # Cinemas Site
 
-The program shows the best movies.
+Лучшие фильмы в кинотеатрах.
 
-{TODO.  The link [On Heroku](https://)}
+The link [On Heroku](https://glacial-basin-93901.herokuapp.com/)
 
 # Важно
 Настоящий сайт создан в исключительно учебных целях. Все сведения о фильмах взяты с сайтов [Афиша](https://www.afisha.ru) и [Кинопоиск](https://www.kinopoisk.ru).
