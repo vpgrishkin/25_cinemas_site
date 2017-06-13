@@ -14,7 +14,7 @@ The link [On Heroku](https://glacial-basin-93901.herokuapp.com/)
 virtualenv -p python3 env
 source env/bin/activate
 pip install -r requirements.txt
-python server.py.
+python server.py
 
 ```
 
