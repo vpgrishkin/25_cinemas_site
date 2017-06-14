@@ -29,31 +29,38 @@
 
   <div id="container" class="container">
     <div class="col-sm-12 col-md-12">
-      <p>Взаимодействие с&nbsp;API происходить в&nbsp;формате JSON.<br />
-        1. Чтобы получить список фильмов, необходимо отравить GET запрос на&nbsp;адрес: .../movies<br />
-        Описание ответа<br />
-        movie_title&nbsp;&mdash; название фильма;<br />
-        details. cinemas_count&nbsp;&mdash; количество кинотеатров;<br />
-        details. movie_url&nbsp;&mdash; ссылка на&nbsp;описание на&nbsp;сайте afisha.&nbsp;ru.</p>
-        <p>2. Чтобы получить описание фильма, необходимо отравить POST запрос на&nbsp;адрес: .../movie_info<br />
-        Описание запроса<br />
-        {<br />
-        &quot;movie_url&quot;: movie_url,<br />
-        &quot;movie_title&quot;: movie_title<br />
-        }<br />
-        movie_url&nbsp;&mdash; ссылка на&nbsp;описание фильма на&nbsp;afisha.&nbsp;ru;<br />
-        movie_title&nbsp;&mdash; название фильма.</p>
-        <p>Пример запроса<br />
-        {<br />
-        &quot;movie_url&quot;: &quot;https://www. afisha. ru/movie/229807/&quot;, <br />
-        &quot;movie_title&quot;: &quot;Большой&quot;<br />
-        }</p>
-        <p>Пример ответа<br />
-        {<br />
-        &quot;description&quot;: &quot;Амбициозная драма про балет, станки и&nbsp;пуанты&quot;,<br />
-        &quot;image&quot;: &quot;https://s5.afisha. ru/MediaStorage/97/54/731f81fc013443cca7a5ff2a5497.jpg&quot;,<br />
-        &quot;rating&quot;: 7.923<br />
-        }</p>
+      Взаимодействие с&nbsp;API происходить в&nbsp;формате JSON.<br />
+      1. Чтобы получить список фильмов, необходимо отравить GET запрос на&nbsp;адрес: <a href="/movies">/movies</a><br />
+      Описание ответа:<br />
+      <code>movie_title</code>&nbsp;&mdash; название фильма;<br />
+      <code>details.cinemas_count</code>&nbsp;&mdash; количество кинотеатров;<br />
+      <code>details.movie_url</code>&nbsp;&mdash; ссылка на&nbsp;описание на&nbsp;сайте afisha.&nbsp;ru.
+      2. Чтобы получить описание фильма, необходимо отравить POST запрос на&nbsp;адрес: <a href="/movie_info">/movie_info</a><br />
+      Описание запроса:<br />
+      <pre>
+      {
+      &quot;movie_url&quot;: movie_url,
+      &quot;movie_title&quot;: movie_title
+      }
+      </pre>
+      <br />
+      <code>movie_url</code>&nbsp;&mdash; ссылка на&nbsp;описание фильма на&nbsp;afisha.&nbsp;ru;<br />
+      <code>movie_title</code>&nbsp;&mdash; название фильма.<br />
+      Пример запроса:<br />
+      <pre>
+      {
+      &quot;movie_url&quot;: &quot;https://www.afisha.ru/movie/229807/&quot;,
+      &quot;movie_title&quot;: &quot;Большой&quot;
+      }
+      </pre>
+      Пример ответа:<br />
+      <pre>
+      {
+      &quot;description&quot;: &quot;Амбициозная драма про балет, станки и&nbsp;пуанты&quot;,
+      &quot;image&quot;: &quot;https://s5.afisha. ru/MediaStorage/97/54/731f81fc013443cca7a5ff2a5497.jpg&quot;,
+      &quot;rating&quot;: 7.923
+      }
+      </pre>
     </div>
   </div>
   <!-- /.container -->
