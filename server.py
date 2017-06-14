@@ -34,7 +34,7 @@ def output_movies():
     return movies_json
 
 
-@app.route('/movie_info', methods=['POST'])
+@app.route('/movie_info', methods=['GET'])
 def output_movie_info():
     json = request.get_json()
     movie_title = json.get('movie_title')

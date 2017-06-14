@@ -57,7 +57,7 @@
 
     function setMovieDetails(movie_url, movie_title, divId, imgId, j) {
       $.ajax({
-        type: 'POST',
+        type: 'GET',
         url: '/movie_info',
         dataType: 'json',
         contentType: 'application/json; charset=utf-8',
@@ -71,13 +71,13 @@
           if (!result.rating) {
             result.rating = "Нет рейтинга", dataSort = 0;
           }
-          $('#' + divId).append('<br><b>Рейтинг:</b>' + '<p>' + result.rating + '</p>');
+          $('#' + divId).append('<b>Рейтинг:</b>' + '<p>' + result.rating + '</p>');
           $('#md' + j).attr('dataSort', dataSort);
 
           if (!result.description) {
             result.description = "Нет описания"
           }
-          $('#' + divId).append('<br><b>Описание:</b>' + '<p>' + result.description + '</p>');
+          $('#' + divId).append('<b>Описание:</b>' + '<p>' + result.description + '</p><br>');
           $('#' + imgId).attr('src', result.image);
 
           sortMoviesByRating()
@@ -105,9 +105,9 @@
                                                 <p class="text-muted"></p>\
                                                 <h2>' + movie_title + '</h2>\
                                                 <img id=film-img' + j + ' src="../static/preloader.gif" alt="image" class="film-img img-responsive">\
-                                                <br><b>Количество кинотеатров:</b>\
+                                                <a href="' + details.movie_url + '">' + movie_title + ' на Афише</a><br>\
+                                                <b>Количество кинотеатров:</b>\
                                                 <p>' + details.cinemas_count + '</p>\
-                                                <br><a href="' + details.movie_url + '">На Афише</a><br>\
                                             </div>\
                                         </div>\
                                       </div>\
