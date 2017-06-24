@@ -1,7 +1,7 @@
 import os
 import logging
 
-from flask import Flask, render_template, jsonify, redirect, request, json
+from flask import Flask, render_template, jsonify, redirect, request, json, send_from_directory
 from werkzeug.contrib.cache import FileSystemCache
 
 import cinemas
@@ -36,19 +36,22 @@ def output_movies():
 
 @app.route('/movie_info', methods=['GET'])
 def output_movie_info():
-    json = request.get_json()
-    movie_title = json.get('movie_title')
-    movie_url = json.get('movie_url')
-    logging.info('[%d/%d] Get "%s":', movie_title)
+    movie_url = request.args.get('movie_url')
+    logging.info('[%d/%d] Get "%s":', movie_url)
 
-    movie_info_json = cache.get(movie_title)
+    movie_info_json = cache.get(movie_url)
     if movie_info_json is None:
-        logging.info('[%d/%d] No cache "%s":', movie_title)
+        logging.info('[%d/%d] No cache "%s":', movie_url)
         movie_info = cinemas.fetch_afisha_movie_description(movie_url)
-        movie_info['rating'] = cinemas.fetch_movie_rating(movie_title)
+        movie_info['rating'] = cinemas.fetch_movie_rating(movie_info['name'])
         movie_info_json = jsonify(movie_info)
-        cache.set(movie_title, movie_info_json)
+        cache.set(movie_url, movie_info_json)
     return movie_info_json
+
+
+@app.route('/robots.txt')
+def static_from_root():
+    return send_from_directory(app.static_folder, request.path[1:])
 
 
 if __name__ == "__main__":
