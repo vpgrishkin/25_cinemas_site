@@ -31,13 +31,14 @@ def parse_afisha_list(raw_html):
 
     movies_titles_tags = soup.find_all('div', {'class': 'm-disp-table'})
 
-    movie_details = {}
+    movie_details = []
     for movie_title_tag in movies_titles_tags[:PARSE_MOVIES_LIMIT]:
         movie_title = movie_title_tag.find('a').text
         cinemas_count = len(movie_title_tag.parent.find_all('td', {'class': 'b-td-item'}))
         movie_url = movie_title_tag.find('h3', {'class': 'usetags'}).find('a').get('href')
-        movie_details[movie_title] = {'cinemas_count': cinemas_count, 'movie_url':movie_url}
-
+        movie_details.append({'cinemas_count': cinemas_count,
+                              'movie_url': movie_url,
+                              'movie_title': movie_title})
     return movie_details
 
 
@@ -98,6 +99,7 @@ def fetch_afisha_movie_description(afisha_movie_url):
     response_json = soup_data.find(attrs={"type": "application/ld+json"}).text
     movie_description_raw_dict = json.loads(response_json)
     movie_description = {}
+    movie_description['name'] = movie_description_raw_dict['name']
     movie_description['description'] = movie_description_raw_dict['description']
     movie_description['image'] = movie_description_raw_dict['image']
 
